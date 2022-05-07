@@ -8,9 +8,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.metropolitan.internetcall.R;
 import com.metropolitan.internetcall.classes.DataManager;
@@ -58,6 +63,23 @@ public class ManageActivity extends AppCompatActivity {
         myBind.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         myBind.recyclerView.setAdapter(adapter);
 
+
+        myBind.btnDelete.setOnClickListener(view -> {
+            dm.delete(adapter.getId());
+            adapter.removeItem();
+            Toast.makeText(view.getContext(),"Record has been deleted!",Toast.LENGTH_LONG).show();
+        });
+
+        myBind.btnInsert.setOnClickListener(view -> {
+            //dm.insert();
+            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+            View popupView = inflater.inflate(R.layout.popup_row, null);
+            int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+            int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            boolean focusable = true;
+            PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        });
 
     }
 

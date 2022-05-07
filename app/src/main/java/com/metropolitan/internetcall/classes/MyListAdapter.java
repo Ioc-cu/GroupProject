@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder>{
     private ArrayList<Patients> listdata;
     private int selectedPos = RecyclerView.NO_POSITION;
-
+    private int id;
     // RecyclerView recyclerView;
     public MyListAdapter(ArrayList<Patients> listdata) { //Constructor instantiating listdata.
         this.listdata = listdata;
@@ -49,9 +49,10 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
             notifyItemChanged(selectedPos);
             selectedPos = viewHolder.getLayoutPosition();
             notifyItemChanged(selectedPos);
-            Toast.makeText(view.getContext(),"click on item: "+myListData.fullname,Toast.LENGTH_LONG).show();
         });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -71,6 +72,19 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
             this.date = (TextView) itemView.findViewById(R.id.date);
             linearl = (LinearLayout)itemView.findViewById(R.id.angie);
         }
+    }
+
+    public int getSelectedPos() {
+        return selectedPos;
+    }
+
+    public int getId(){
+        return listdata.get(selectedPos).id;
+    }
+
+    public void removeItem() {
+        listdata.remove(selectedPos);
+        notifyItemChanged(selectedPos);
     }
 
 }

@@ -54,11 +54,11 @@ public class DataManager {
 
     }
     // Delete a record
-    public void delete(String name){
+    public void delete(int id){
 
         // Delete the details from the table if already exists
         //String query = "DELETE FROM " + TABLE_N_AND_A + " WHERE " + TABLE_ROW_FULLNAME + " = '" + name + "';";
-        String query = String.format("DELETE FROM %s WHERE %s = '%s';", TABLE_N_AND_A, TABLE_ROW_FULLNAME, name);
+        String query = String.format("DELETE FROM %s WHERE %s = '%d';", TABLE_N_AND_A, TABLE_ROW_ID, id);
         Log.i("delete() = ", query);
 
         db.execSQL(query);
