@@ -24,6 +24,7 @@ public class RecycleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //lalalalla
 
         dm= new DataManager(RecycleActivity.this);
         p = new Patients();
