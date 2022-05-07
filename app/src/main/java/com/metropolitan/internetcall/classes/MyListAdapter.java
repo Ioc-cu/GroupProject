@@ -40,7 +40,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         holder.fullName.setText(""+myListData.fullname);
         holder.address.setText(myListData.address);
         holder.date.setText(myListData.date);
-        holder.linearl.setOnClickListener(view -> {holder.linearl.setBackgroundColor(125);});
+        holder.linearl.setOnClickListener(view -> {holder.linearl.setTooltipText("Yes!");});
         holder.linearl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
