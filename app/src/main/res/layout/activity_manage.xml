@@ -9,39 +9,41 @@
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
+        android:layout_height="48dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/fullName"
-            android:layout_width="60dp"
+            android:layout_width="260dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/back"
-            android:capitalize="none"
             android:gravity="center"
-            android:text="FullName"
+            android:text="Full Name"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/address"
-            android:layout_width="40dp"
+            android:layout_width="260dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/back"
             android:gravity="center"
             android:text="Address"
+            android:textAlignment="center"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/date"
-            android:layout_width="40dp"
+            android:layout_width="260dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/back"
             android:gravity="center"
             android:text="Date"
+            android:textAlignment="center"
             android:textSize="20sp" />
     </LinearLayout>
 

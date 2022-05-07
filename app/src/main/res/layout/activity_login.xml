@@ -27,7 +27,8 @@
             android:layout_marginBottom="8dp"
             android:hint="Username"
             android:inputType="text"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:importantForAutofill="no" />
 
         <EditText
             android:id="@+id/editTextPassword"
@@ -38,7 +39,8 @@
             android:fontFamily="sans-serif"
             android:hint="Password"
             android:inputType="textPassword"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:importantForAutofill="no" />
 
         <Button
             android:id="@+id/buttonLogin"
@@ -59,20 +61,6 @@
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
 
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="408dp"
-        android:layout_height="35dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.749" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

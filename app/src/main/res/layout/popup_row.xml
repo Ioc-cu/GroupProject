@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
 
-    android:layout_height="160dp">
+    android:layout_height="wrap_content">
 
 
     <LinearLayout
@@ -27,7 +27,9 @@
             android:gravity="center"
             android:hint="Full Name"
             android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:textColorHint="#757575"
+            android:importantForAutofill="no" />
 
         <EditText
             android:id="@+id/popupaddress"
@@ -38,13 +40,16 @@
             android:gravity="center"
             android:hint="Address"
             android:inputType="textPersonName"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:textColorHint="#757575"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/popupdate"
             android:layout_width="260dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:ems="10"
             android:gravity="center"
             android:text="Date" />
 
