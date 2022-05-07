@@ -2,14 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/angie"
     android:layout_width="match_parent"
-    android:layout_height="30dp">
+    android:layout_height="32dp">
 
     <TextView
         android:id="@+id/fullName"
         android:layout_width="60dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/back"
         android:capitalize="none"
         android:gravity="center"
         android:text="FullName"
@@ -21,7 +20,6 @@
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/back"
         android:gravity="center"
         android:text="Address"
         android:textSize="18sp" />
@@ -31,7 +29,6 @@
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="@drawable/back"
         android:gravity="center"
         android:text="Date"
         android:textSize="18sp" />

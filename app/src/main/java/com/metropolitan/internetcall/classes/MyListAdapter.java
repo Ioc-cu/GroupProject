@@ -1,6 +1,7 @@
 package com.metropolitan.internetcall.classes;
 
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,11 @@ import java.util.ArrayList;
 
 
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder>{
-    private ArrayList<Patients>  listdata;
-
+    private ArrayList<Patients> listdata;
+    private int selectedPos = RecyclerView.NO_POSITION;
 
     // RecyclerView recyclerView;
-    public MyListAdapter(ArrayList<Patients>  listdata) {
+    public MyListAdapter(ArrayList<Patients> listdata) { //Constructor instantiating listdata.
         this.listdata = listdata;
     }
 
@@ -35,17 +36,20 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyListAdapter.ViewHolder viewHolder, int position) {
+        viewHolder.itemView.setBackgroundColor(selectedPos == position ? Color.GRAY : Color.WHITE);
+
         final Patients myListData = listdata.get(position);
-        holder.fullName.setText(""+myListData.fullname);
-        holder.address.setText(myListData.address);
-        holder.date.setText(myListData.date);
-        holder.linearl.setOnClickListener(view -> {holder.linearl.setTooltipText("Yes!");});
-        holder.linearl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(view.getContext(),"click on item: "+myListData.fullname,Toast.LENGTH_LONG).show();
-            }
+        viewHolder.fullName.setText(""+myListData.fullname);
+        viewHolder.address.setText(myListData.address);
+        viewHolder.date.setText(myListData.date);
+
+        viewHolder.itemView.setOnClickListener(view -> {
+
+            notifyItemChanged(selectedPos);
+            selectedPos = viewHolder.getLayoutPosition();
+            notifyItemChanged(selectedPos);
+            Toast.makeText(view.getContext(),"click on item: "+myListData.fullname,Toast.LENGTH_LONG).show();
         });
     }
 

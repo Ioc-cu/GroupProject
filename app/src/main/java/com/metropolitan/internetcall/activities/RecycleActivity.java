@@ -43,7 +43,6 @@ public class RecycleActivity extends AppCompatActivity {
         }
 
 
-
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.MyRecycler);
         MyListAdapter adapter = new MyListAdapter(myPatients);
         recyclerView.setHasFixedSize(true);
