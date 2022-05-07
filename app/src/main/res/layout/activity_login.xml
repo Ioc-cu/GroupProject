@@ -26,7 +26,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:hint="Username"
-            android:inputType="text" />
+            android:inputType="text"
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/editTextPassword"
@@ -36,7 +37,8 @@
             android:layout_marginBottom="8dp"
             android:fontFamily="sans-serif"
             android:hint="Password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:minHeight="48dp" />
 
         <Button
             android:id="@+id/buttonLogin"
