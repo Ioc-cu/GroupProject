@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -16,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -72,6 +75,22 @@ public class ManageActivity extends AppCompatActivity {
         AtomicReference<TextView> popUpDate = new AtomicReference<>(findViewById(R.id.popupdate));
         AtomicReference<Button> btnSubmit = new AtomicReference<>(findViewById(R.id.btnSubmit));
 
+
+        //Dialog? Initialization
+        final Context context = this;
+        final Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.popup_row);
+        dialog.setTitle("Insert/Update");
+
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_row, null);
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true;
+        PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+
+
         onDateSetListener = (view, year, month, dayOfMonth) -> {
             String date = String.format("%d-%d-%d", year, month, dayOfMonth);
             popUpDate.get().setText(date);
@@ -98,10 +117,9 @@ public class ManageActivity extends AppCompatActivity {
         myBind.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         myBind.recyclerView.setAdapter(adapter);
 
-
         myBind.btnDelete.setOnClickListener(view -> {
             try {
-                //adapter.notifyItemChanged(adapter.getSelectedPos());
+                adapter.notifyItemChanged(adapter.getSelectedPos());
                 dm.delete(adapter.getId());
                 adapter.removeItem();
                 Toast.makeText(view.getContext(), "Record has been deleted!", Toast.LENGTH_SHORT).show();
@@ -115,37 +133,35 @@ public class ManageActivity extends AppCompatActivity {
             try{
                 if (adapter.getSelectedPos() == -1 ) Toast.makeText(view.getContext(), "Please select a record!", Toast.LENGTH_SHORT).show();
                 else {
-
-                    LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-                    View popupView = inflater.inflate(R.layout.popup_row, null);
-                    int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                    int height = LinearLayout.LayoutParams.MATCH_PARENT;
-                    boolean focusable = true;
-                    PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-                    popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-                    //Instantiate here
-
-                    popUpFullName.set(popupView.findViewById(R.id.popupfullname));
-                    popUpAddress.set(popupView.findViewById(R.id.popupaddress));
-                    popUpDate.set(popupView.findViewById(R.id.popupdate));
+                    dialog.show();
+                    //popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+                    popUpFullName.set(dialog.findViewById(R.id.popupfullname));
+                    popUpAddress.set(dialog.findViewById(R.id.popupaddress));
+                    popUpDate.set(dialog.findViewById(R.id.popupdate));
                     btnSubmit.set(findViewById(R.id.btnSubmit));
 
-                    popupView.findViewById(R.id.popupdate).setOnClickListener(view2 -> {
+                    dialog.findViewById(R.id.popupdate).setOnClickListener(view2 -> {
                         datePickerDialog = new DatePickerDialog(this);
                         datePickerDialog.show();
                         datePickerDialog.setOnDateSetListener(onDateSetListener);
                     });
 
-                    popupView.findViewById(R.id.btnSubmit).setOnClickListener(view2 -> {
+                    dialog.findViewById(R.id.btnSubmit).setOnClickListener(view2 -> {
                         String fullName = popUpFullName.get().getText().toString();
                         String address = popUpAddress.get().getText().toString();
                         String date = popUpDate.get().getText().toString();
 
                         //Update Segment
                         try{
-                            adapter.getPatients().set(adapter.getSelectedPos(), new Patients(adapter.getId(), fullName, address, date)); //THIS IS UPDATE
-                            dm.update(adapter.getId(), fullName, address, date);
-                            adapter.notifyItemChanged(adapter.getSelectedPos());
+                            if (!(fullName.isEmpty() || address.isEmpty())) {
+                                adapter.getPatients().set(adapter.getSelectedPos(), new Patients(adapter.getId(), fullName, address, date)); //THIS IS UPDATE
+                                dm.update(adapter.getId(), fullName, address, date);
+                                adapter.notifyItemChanged(adapter.getSelectedPos());
+                                dialog.dismiss();
+                            } else {
+                                if (fullName.isEmpty()) popUpFullName.get().setError("Field cannot be left blank.");
+                                else popUpAddress.get().setError("Field cannot be left blank.");
+                            }
                         } catch (Exception e){
                             Toast.makeText(view.getContext(), "Selected one too many!", Toast.LENGTH_SHORT).show();
                         }
@@ -159,34 +175,28 @@ public class ManageActivity extends AppCompatActivity {
 
         //Insert Button
         myBind.btnInsert.setOnClickListener(view -> {
-
-            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-            View popupView = inflater.inflate(R.layout.popup_row, null);
-            int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-            int height = LinearLayout.LayoutParams.MATCH_PARENT;
-            boolean focusable = true;
-            PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+            dialog.show();
+            //popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
             //Instantiate here
 
-            popUpFullName.set(popupView.findViewById(R.id.popupfullname));
-            popUpAddress.set(popupView.findViewById(R.id.popupaddress));
-            popUpDate.set(popupView.findViewById(R.id.popupdate));
-            btnSubmit.set(findViewById(R.id.btnSubmit));
+            popUpFullName.set(dialog.findViewById(R.id.popupfullname));
+            popUpAddress.set(dialog.findViewById(R.id.popupaddress));
+            popUpDate.set(dialog.findViewById(R.id.popupdate));
 
-            popupView.findViewById(R.id.popupdate).setOnClickListener(view2 -> {
+            dialog.findViewById(R.id.popupdate).setOnClickListener(view2 -> {
                 datePickerDialog = new DatePickerDialog(this);
                 datePickerDialog.show();
                 datePickerDialog.setOnDateSetListener(onDateSetListener);
             });
 
-            popupView.findViewById(R.id.btnSubmit).setOnClickListener(view2 -> {
+            dialog.findViewById(R.id.btnSubmit).setOnClickListener(view2 -> {
                 String fullName = popUpFullName.get().getText().toString();
                 String address = popUpAddress.get().getText().toString();
                 String date = popUpDate.get().getText().toString();
 
                 if (!(fullName.isEmpty() || address.isEmpty())){
-                    adapter.getPatients().add(new Patients(fullName, address, date));
+                    System.out.println("Max ID: " + (dm.getAutoIncrementValue()+1));
+                    adapter.getPatients().add(new Patients(dm.getAutoIncrementValue()+1, fullName, address, date));
                     dm.insert(fullName, address, date); //Insert to SQLite Database
                     adapter.notifyDataSetChanged();
                 } else {

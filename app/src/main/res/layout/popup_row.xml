@@ -3,20 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#efefef"
-    android:layout_height="wrap_content">
-
+    android:layout_height="match_parent"
+    android:layout_weight="1">
 
     <LinearLayout
         android:id="@+id/angie"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginBottom="112dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="#ffffff"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/popupfullname"
@@ -26,10 +25,10 @@
             android:ems="10"
             android:gravity="center"
             android:hint="Full Name"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:textColorHint="#757575"
-            android:importantForAutofill="no" />
+            android:textColorHint="#757575" />
 
         <EditText
             android:id="@+id/popupaddress"
@@ -39,10 +38,10 @@
             android:ems="10"
             android:gravity="center"
             android:hint="Address"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:textColorHint="#757575"
-            android:importantForAutofill="no" />
+            android:textColorHint="#757575" />
 
         <TextView
             android:id="@+id/popupdate"
@@ -53,14 +52,16 @@
             android:gravity="center"
             android:text="Date" />
 
-        <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="95dp"
-            android:layout_height="match_parent"
-            android:baselineAligned="false"
-            android:text="Submit" />
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:text="Submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/angie" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-

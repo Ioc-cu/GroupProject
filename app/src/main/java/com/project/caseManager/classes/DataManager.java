@@ -77,7 +77,7 @@ public class DataManager {
     public Cursor selectAll() {
         Cursor c = db.rawQuery("SELECT *" +" from " +
                 TABLE_N_AND_A, null);
-        String query = String.format("SELECT * from %s", TABLE_N_AND_A);
+        // query = String.format("SELECT * from %s", TABLE_N_AND_A);
         return c;
     }
 
@@ -130,6 +130,13 @@ public class DataManager {
 
     public void printLocation(){
         System.out.println(db.getPath());
+    }
+
+    public int getAutoIncrementValue (){
+        String sql = String.format("select seq from sqlite_sequence where name=\"%s\";", TABLE_N_AND_A);
+        Cursor c = db.rawQuery(sql, null);
+        c.moveToNext();
+        return c.getInt(0);
     }
 
     public void deleteDb(){

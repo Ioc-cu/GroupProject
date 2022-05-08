@@ -85,6 +85,9 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         return listdata.get(selectedPos).id;
     }
 
+
+    //get SQLite's max id auto_increment++
+
     public void removeItem() {
         try{
             System.out.println("ID: " + listdata.get(selectedPos));

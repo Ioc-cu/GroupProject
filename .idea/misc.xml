@@ -11,8 +11,10 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/GroupAss/app/src/main/res/layout/activity_login.xml" value="0.358695652173913" />
         <entry key="..\:/Users/User/AndroidStudioProjects/GroupAss/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/drawable/back.xml" value="0.2415" />
+        <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/drawable/ic_manage.xml" value="0.1595" />
         <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/drawable/ic_statistics.xml" value="0.339" />
         <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/drawable/selector.xml" value="0.339" />
+        <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/drawable/shape.xml" value="0.196" />
         <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/layout/activity_main2.xml" value="0.25" />
@@ -25,7 +27,7 @@
         <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/layout/fragment_first.xml" value="0.2859375" />
         <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/layout/fragment_menu.xml" value="0.15" />
         <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/layout/fragment_second.xml" value="0.2859375" />
-        <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/layout/popup_row.xml" value="0.33" />
+        <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/layout/popup_row.xml" value="0.25" />
         <entry key="..\:/Users/vag/AndroidStudioProjects/GroupAss/app/src/main/res/menu/menu.xml" value="0.33" />
       </map>
     </option>
