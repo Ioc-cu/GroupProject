@@ -30,6 +30,7 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+//Registers the user. Same functionality with LoginActivity, server handles registering query.
 public class RegisterActivity extends AppCompatActivity {
 
     DataManager dm;

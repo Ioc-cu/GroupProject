@@ -29,12 +29,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
-
+//Application Starts with this Activity, basically has the functionality of a Login Form: View Resource Functionality, AsyncTask Functionality,
+// Connection Functionality, JSON Functionality.
 public class LoginActivity extends AppCompatActivity {
     DataManager dm ;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //Handles basic Element functionality.
         super.onCreate(savedInstanceState);
         final ActivityLoginBinding myBind = ActivityLoginBinding.inflate(getLayoutInflater());
         View myView = myBind.getRoot();
@@ -54,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         myBind.textViewRegister.setOnClickListener(view-> {startActivity(new Intent(getApplicationContext(), RegisterActivity.class));});
     }
 
-    class Worker extends AsyncTask<String, String, String> {
+    class Worker extends AsyncTask<String, String, String> { //AsyncTask Inner class that runs connection taks outside of the UI thread, and creates a JSON file inside the UI thread.
 
         protected String doInBackground(String... s) {
             StringBuilder sb = new StringBuilder();

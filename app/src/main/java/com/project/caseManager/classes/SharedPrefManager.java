@@ -6,12 +6,14 @@ import android.content.SharedPreferences;
 
 import com.project.caseManager.activities.LoginActivity;
 
+//SharedPrefManager is used in this use case as a Session Handler, creating a "Session" by adding the user data into the SharedPrefferences object,
+//and ending the "Session" by clearing the data inside the class.
+
 public class SharedPrefManager { //Session Handler Class
     //the constants
     private static final String SHARED_PREF_NAME = "metropsharedpref";
     private static final String KEY_USERNAME = "keyusername";
     private static final String KEY_EMAIL = "keyemail";
-    private static final String KEY_GENDER = "keygender";
     private static final String KEY_ID = "keyid";
 
     private static SharedPrefManager mInstance;

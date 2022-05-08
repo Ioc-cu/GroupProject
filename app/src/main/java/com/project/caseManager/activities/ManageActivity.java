@@ -47,6 +47,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.net.ssl.HttpsURLConnection;
 
+
+//ManageActivity basically does CRUD operations internally with the use of an SQLite Database, and then commits changes remotely to server.
 public class ManageActivity extends AppCompatActivity {
 
     DataManager dm;

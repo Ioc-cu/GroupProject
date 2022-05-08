@@ -1,5 +1,6 @@
 package com.project.caseManager.classes;
 
+//URL helper class containing static url fields
 public class URLs {
     public static final String ROOT_URL = "http://10.0.2.2/android/api2.php?apicall=";
     public static final String ROOT_URL2 = "http://10.0.2.2/android/receive.php";

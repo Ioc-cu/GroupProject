@@ -1,5 +1,7 @@
 package com.project.caseManager.classes;
 
+//Entity Class of User, exact same fields as SQLite(Local) and MySQL(Server) "user" table fields
+
 public class User {
     private int id;
     private String username, email;

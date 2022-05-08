@@ -14,6 +14,7 @@ import com.project.caseManager.classes.User;
 import com.project.caseManager.R;
 import com.project.caseManager.databinding.ActivityMainMenuBinding;
 
+//Shows the Logged in User's  SharedPrefferences and gives the user the ability to navigate to ManageActivity and logout(which deletes SQLiteDatabase in the Process).
 public class MenuActivity extends AppCompatActivity { //Session Activity
 
     DataManager dm;

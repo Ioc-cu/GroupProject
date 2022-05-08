@@ -16,15 +16,14 @@ import com.project.caseManager.R;
 
 import java.util.ArrayList;
 
-
+//ListAdapter class is used to interact and inflate with RecyclerView item on DataActivty.
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder>{
     private ArrayList<Patients> listdata;
     private int selectedPos = RecyclerView.NO_POSITION;
-    private int id;
-    // RecyclerView recyclerView;
     public MyListAdapter(ArrayList<Patients> listdata) { //Constructor instantiating listdata.
         this.listdata = listdata;
     }
+
 
     @NonNull
     @Override
@@ -35,17 +34,15 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         return viewHolder;
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull MyListAdapter.ViewHolder viewHolder, int position) {
-        viewHolder.itemView.setBackgroundColor(selectedPos == position ? Color.GRAY : Color.WHITE);
-
+        viewHolder.itemView.setBackgroundColor(selectedPos == position ? Color.GRAY : Color.WHITE); //If item is selected, mark it with gray color, else unmark it(change colour to white)
         final Patients myListData = listdata.get(position);
         viewHolder.fullName.setText(""+myListData.fullname);
         viewHolder.address.setText(myListData.address);
         viewHolder.date.setText(myListData.date);
-
         viewHolder.itemView.setOnClickListener(view -> {
-
             notifyItemChanged(selectedPos);
             selectedPos = viewHolder.getLayoutPosition();
             notifyItemChanged(selectedPos);
@@ -58,9 +55,8 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
     @Override
     public int getItemCount() {
         return listdata.size();
-    }
-
-
+    } //get the size of the ArrayList.
+    //Create the ViewHolder item containing a row's contents
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView fullName;
         public TextView address;
@@ -75,22 +71,23 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         }
     }
 
+    //Get the current PositionIndex of the RecyclerView
     public int getSelectedPos() {
-        System.out.println(selectedPos);
+        //System.out.println(selectedPos);
         return selectedPos;
     }
 
+    //Gets the selected row's Patient id
     public int getId(){
-        System.out.println("Id: " + listdata.get(selectedPos).id);
+        //System.out.println("Id: " + listdata.get(selectedPos).id);
         return listdata.get(selectedPos).id;
     }
 
 
-    //get SQLite's max id auto_increment++
-
+    //Removes a selected row from RecyclerView through ArrayList
     public void removeItem() {
         try{
-            System.out.println("ID: " + listdata.get(selectedPos));
+            //System.out.println("ID: " + listdata.get(selectedPos));
             listdata.remove(selectedPos);
             notifyItemRemoved(selectedPos);
             selectedPos = RecyclerView.NO_POSITION;
@@ -99,6 +96,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         }
     }
 
+    //Returns the Patient ArrayList
     public ArrayList<Patients> getPatients(){
         return listdata;
     }

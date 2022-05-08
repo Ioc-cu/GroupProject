@@ -1,5 +1,8 @@
 package com.project.caseManager.classes;
 
+
+//Entity Class of Patients, exact same fields as SQLite(Local) and MySQL(Server) "patients" table fields
+
 public class Patients {
     public int id;
     public String fullname;
