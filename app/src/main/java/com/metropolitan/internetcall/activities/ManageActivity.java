@@ -116,7 +116,7 @@ public class ManageActivity extends AppCompatActivity {
 
         myBind.btnUpdate.setOnClickListener(view -> { //Same thing is done here, but just updates db.
             try{
-                if (adapter.getId() == 0 ) Toast.makeText(view.getContext(), "Please select a record!", Toast.LENGTH_SHORT).show();
+                if (adapter.getSelectedPos() == -1 ) Toast.makeText(view.getContext(), "Please select a record!", Toast.LENGTH_SHORT).show();
                 else {
 
                     LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -155,8 +155,9 @@ public class ManageActivity extends AppCompatActivity {
 
                     });
                 }
-            }catch (Exception e) {Toast.makeText(view.getContext(), "Please select a record!", Toast.LENGTH_SHORT).show();}
-
+            }catch (Exception e) {
+                Toast.makeText(view.getContext(), "Exception Thrown: " + e.toString(), Toast.LENGTH_SHORT).show(); System.out.println("ID: " + adapter.getId());
+            }
         });
 
         //Insert Button
@@ -186,9 +187,16 @@ public class ManageActivity extends AppCompatActivity {
                 String fullName = popUpFullName.get().getText().toString();
                 String address = popUpAddress.get().getText().toString();
                 String date = popUpDate.get().getText().toString();
-                adapter.getPatients().add(new Patients(fullName, address, date));
-                dm.insert(fullName, address, date); //Insert to SQLite Database
-                adapter.notifyItemChanged(adapter.getSelectedPos());
+
+                if (!(fullName.isEmpty() || address.isEmpty())){
+                    adapter.getPatients().add(new Patients(fullName, address, date));
+                    dm.insert(fullName, address, date); //Insert to SQLite Database
+                    adapter.notifyDataSetChanged();
+                } else {
+                    
+                    popUpFullName.get().setError("Field cannot be left blank.");
+                    popUpAddress.get().setError("Field cannot be left blank.");
+                }
             });
         });
 
@@ -205,13 +213,13 @@ public class ManageActivity extends AppCompatActivity {
                     while (d.moveToNext()) {
                         JSONObject record = new JSONObject();
                         patients.id = d.getInt(0);
-                        record.put("pid", ""+patients.id);
+                        record.put("id", ""+patients.id);
                         patients.fullname = d.getString(1);
                         record.put("fullname", ""+patients.fullname);
                         patients.address = d.getString(2);
                         record.put("address", ""+patients.address);
                         patients.date = d.getString(3);
-                        record.put("date", ""+patients.date);
+                        record.put("dateofexposure", ""+patients.date);
                         jsonArray.put(record);
                         Log.i("MESSAGE",record.toString());
                     }
@@ -224,8 +232,8 @@ public class ManageActivity extends AppCompatActivity {
             {
                 Toast.makeText(view.getContext(), "JSON file failed to instantiate", Toast.LENGTH_SHORT).show();
             }
-//            Worker worker = new Worker();
-//            worker.execute(mydata);
+            Worker worker = new Worker();
+            worker.execute(mydata);
         });
 
     }
@@ -245,10 +253,6 @@ public class ManageActivity extends AppCompatActivity {
             case "Manage":
                 System.out.println("You clicked Manage!");
                 startActivity(new Intent(this, ManageActivity.class));
-                break;
-            case "Statistics":
-                System.out.println("You clicked Statistics!");
-                startActivity(new Intent(this, StatisticsActivity.class));
                 break;
             case "Menu":
                 System.out.println("You clicked Menu!");
@@ -323,6 +327,7 @@ public class ManageActivity extends AppCompatActivity {
             // DO SOMETHING WITH STRING RESPONSE
             super.onPostExecute(s);
             Log.i("Response: ", s);
+            Toast.makeText(getApplicationContext(), "Response: " + s, Toast.LENGTH_SHORT).show();
         }
     }
 

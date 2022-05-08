@@ -12,14 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InternetCall"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".activities.StatisticsActivity"
-            android:exported="false" />
         <activity android:name=".activities.ManageActivity" android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.SendActivity" />
-        <activity android:name=".activities.DBActivity" />
-        <activity android:name=".activities.RecycleActivity" />
         <activity android:name=".activities.MenuActivity" />
         <activity
             android:name=".activities.LoginActivity"
