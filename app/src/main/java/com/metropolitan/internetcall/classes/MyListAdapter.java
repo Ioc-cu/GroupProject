@@ -2,6 +2,7 @@ package com.metropolitan.internetcall.classes;
 
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.metropolitan.internetcall.R;
 
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder>{
@@ -49,6 +51,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
             notifyItemChanged(selectedPos);
             selectedPos = viewHolder.getLayoutPosition();
             notifyItemChanged(selectedPos);
+            Log.i("Selected: ", ""+selectedPos);
         });
     }
 
@@ -75,16 +78,24 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
     }
 
     public int getSelectedPos() {
+        System.out.println(selectedPos);
         return selectedPos;
     }
 
     public int getId(){
+        System.out.println("Id: " + listdata.get(selectedPos).id);
         return listdata.get(selectedPos).id;
     }
 
     public void removeItem() {
-        listdata.remove(selectedPos);
-        notifyItemChanged(selectedPos);
+        try{
+            System.out.println("ID: " + listdata.get(selectedPos));
+            listdata.remove(selectedPos);
+            notifyItemRemoved(selectedPos);
+            selectedPos = RecyclerView.NO_POSITION;
+        }catch(Exception e) {
+            System.out.println("Inconsistency Detected!");
+        }
     }
 
     public ArrayList<Patients> getPatients(){

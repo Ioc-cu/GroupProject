@@ -103,11 +103,13 @@ public class ManageActivity extends AppCompatActivity {
 
 
         myBind.btnDelete.setOnClickListener(view -> {
-            try{
+            try {
+                //adapter.notifyItemChanged(adapter.getSelectedPos());
                 dm.delete(adapter.getId());
                 adapter.removeItem();
                 Toast.makeText(view.getContext(), "Record has been deleted!", Toast.LENGTH_SHORT).show();
-            }catch (Exception e){
+            }
+            catch (Exception e){
                 Toast.makeText(view.getContext(), "Please select a record!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -143,9 +145,14 @@ public class ManageActivity extends AppCompatActivity {
                         String date = popUpDate.get().getText().toString();
 
                         //Update Segment
-                        adapter.getPatients().set(adapter.getSelectedPos(), new Patients(adapter.getId(), fullName, address, date)); //THIS IS UPDATE
-                        dm.update(adapter.getId(), fullName, address, date);
-                        adapter.notifyItemChanged(adapter.getSelectedPos());
+                        try{
+                            adapter.getPatients().set(adapter.getSelectedPos(), new Patients(adapter.getId(), fullName, address, date)); //THIS IS UPDATE
+                            dm.update(adapter.getId(), fullName, address, date);
+                            adapter.notifyItemChanged(adapter.getSelectedPos());
+                        } catch (Exception e){
+                            Toast.makeText(view.getContext(), "Selected one too many!", Toast.LENGTH_SHORT).show();
+                        }
+
                     });
                 }
             }catch (Exception e) {Toast.makeText(view.getContext(), "Please select a record!", Toast.LENGTH_SHORT).show();}
@@ -179,7 +186,7 @@ public class ManageActivity extends AppCompatActivity {
                 String fullName = popUpFullName.get().getText().toString();
                 String address = popUpAddress.get().getText().toString();
                 String date = popUpDate.get().getText().toString();
-                adapter.getPatients().add(new Patients(adapter.getId(), fullName, address, date));
+                adapter.getPatients().add(new Patients(fullName, address, date));
                 dm.insert(fullName, address, date); //Insert to SQLite Database
                 adapter.notifyItemChanged(adapter.getSelectedPos());
             });

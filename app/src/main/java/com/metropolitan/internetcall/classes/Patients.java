@@ -13,6 +13,16 @@ public class Patients {
         this.address=address;
         this.date=date;
     }
+
+    public Patients(String fullname, String address, String date)
+    {
+        this.id = 0;
+        this.fullname =fullname;
+        this.address=address;
+        this.date=date;
+    }
+
+
     public Patients()
     {
         this.id = 1;
