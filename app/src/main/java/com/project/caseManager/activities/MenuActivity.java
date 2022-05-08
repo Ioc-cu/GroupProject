@@ -1,20 +1,18 @@
-package com.metropolitan.internetcall.activities;
+package com.project.caseManager.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
-import com.metropolitan.internetcall.classes.DataManager;
-import com.metropolitan.internetcall.classes.SharedPrefManager;
-import com.metropolitan.internetcall.classes.User;
-import com.metropolitan.internetcall.R;
-import com.metropolitan.internetcall.databinding.ActivityMainMenuBinding;
+import com.project.caseManager.classes.DataManager;
+import com.project.caseManager.classes.SharedPrefManager;
+import com.project.caseManager.classes.User;
+import com.project.caseManager.R;
+import com.project.caseManager.databinding.ActivityMainMenuBinding;
 
 public class MenuActivity extends AppCompatActivity { //Session Activity
 

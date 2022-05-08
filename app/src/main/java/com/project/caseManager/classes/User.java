@@ -1,4 +1,4 @@
-package com.metropolitan.internetcall.classes;
+package com.project.caseManager.classes;
 
 public class User {
     private int id;

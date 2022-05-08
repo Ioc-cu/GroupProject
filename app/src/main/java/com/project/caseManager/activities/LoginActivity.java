@@ -1,22 +1,20 @@
-package com.metropolitan.internetcall.activities;
+package com.project.caseManager.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.metropolitan.internetcall.classes.DataManager;
-import com.metropolitan.internetcall.classes.SharedPrefManager;
-import com.metropolitan.internetcall.classes.URLs;
-import com.metropolitan.internetcall.classes.User;
-import com.metropolitan.internetcall.databinding.ActivityRegisterBinding;
-import com.metropolitan.internetcall.R;
-
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.Toast;
+
+import com.project.caseManager.classes.DataManager;
+import com.project.caseManager.classes.SharedPrefManager;
+import com.project.caseManager.classes.URLs;
+import com.project.caseManager.classes.User;
+import com.project.caseManager.databinding.ActivityLoginBinding;
+import com.project.caseManager.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,38 +27,31 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.Timestamp;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class RegisterActivity extends AppCompatActivity {
-
-    DataManager dm;
+public class LoginActivity extends AppCompatActivity {
+    DataManager dm ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        final ActivityRegisterBinding myBind = ActivityRegisterBinding.inflate(getLayoutInflater());
+        final ActivityLoginBinding myBind = ActivityLoginBinding.inflate(getLayoutInflater());
         View myView = myBind.getRoot();
         setContentView(myView);
 
-        myBind.textViewRegister.setOnClickListener(view-> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
-        myBind.buttonRegister.setOnClickListener(view -> {
-            if (myBind.editTextUsername.getText().toString().isEmpty() || myBind.editTextEmail.getText().toString().isEmpty() || myBind.editTextPassword.getText().toString().isEmpty()){
-                if (myBind.editTextUsername.getText().toString().isEmpty()) {myBind.editTextUsername.setError("Field cannot be left blank.");
-                } else if (myBind.editTextEmail.getText().toString().isEmpty()) {myBind.editTextEmail.setError("Field cannot be left blank");}
-                else {myBind.editTextPassword.setError("Field cannot be left blank");}
-            } else{
-                String credentials = String.format("&username=%s&email=%s&password=%s",
-                        myBind.editTextUsername.getText(), myBind.editTextEmail.getText(), myBind.editTextPassword.getText());
-                System.out.println(credentials);
-                RegisterActivity.Worker worker = new RegisterActivity.Worker();
-                worker.execute(credentials);
-            }
-        });
 
+        //if the user is already logged in we will directly start the profile activity
+        if (SharedPrefManager.getInstance(this).isLoggedIn()) {
+            finish();
+            startActivity(new Intent(this, MenuActivity.class));
+        }
 
+        myBind.buttonLogin.setOnClickListener(view-> {
+                String credentials ="&email="+myBind.editTextUsername.getText().toString()+"&password="+myBind.editTextPassword.getText().toString();
+                Worker worker = new Worker();
+                worker.execute(credentials);});
+        myBind.textViewRegister.setOnClickListener(view-> {startActivity(new Intent(getApplicationContext(), RegisterActivity.class));});
     }
 
     class Worker extends AsyncTask<String, String, String> {
@@ -71,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
             URL url;
             try {
                 //1. Create a connection to the api server
-                url = new URL(URLs.URL_REGISTER);
+                url = new URL(URLs.URL_LOGIN);
 
                 Log.d("MESSAGE", url.toString());
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -147,7 +138,7 @@ public class RegisterActivity extends AppCompatActivity {
                     SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
 
                     //getting the patient rows from the response and saving them on SQLite
-                    dm = new DataManager(RegisterActivity.this);
+                    dm = new DataManager(LoginActivity.this);
                     JSONArray patientsJson = obj.getJSONArray("patients");
                     int length = patientsJson.length();
                     for(int i=0; i<length; i++) {
@@ -167,4 +158,5 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
+
 }

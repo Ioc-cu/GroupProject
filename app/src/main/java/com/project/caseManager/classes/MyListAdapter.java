@@ -1,4 +1,4 @@
-package com.metropolitan.internetcall.classes;
+package com.project.caseManager.classes;
 
 
 import android.graphics.Color;
@@ -8,15 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.metropolitan.internetcall.R;
+import com.project.caseManager.R;
 
 import java.util.ArrayList;
-import java.util.function.Predicate;
 
 
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder>{

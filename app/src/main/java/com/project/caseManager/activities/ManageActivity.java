@@ -1,4 +1,4 @@
-package com.metropolitan.internetcall.activities;
+package com.project.caseManager.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,14 +21,12 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.metropolitan.internetcall.R;
-import com.metropolitan.internetcall.classes.DataManager;
-import com.metropolitan.internetcall.classes.MyListAdapter;
-import com.metropolitan.internetcall.classes.Patients;
-import com.metropolitan.internetcall.classes.SharedPrefManager;
-import com.metropolitan.internetcall.classes.URLs;
-import com.metropolitan.internetcall.classes.User;
-import com.metropolitan.internetcall.databinding.ActivityManageBinding;
+import com.project.caseManager.R;
+import com.project.caseManager.classes.DataManager;
+import com.project.caseManager.classes.MyListAdapter;
+import com.project.caseManager.classes.Patients;
+import com.project.caseManager.classes.URLs;
+import com.project.caseManager.databinding.ActivityManageBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +34,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.metropolitan.internetcall">
+    package="com.project.caseManager">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,11 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InternetCall"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.ManageActivity" android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.MenuActivity" />
+        <activity android:name="com.project.caseManager.activities.ManageActivity" android:windowSoftInputMode="adjustPan" />
+        <activity android:name="com.project.caseManager.activities.RegisterActivity" />
+        <activity android:name="com.project.caseManager.activities.MenuActivity" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name="com.project.caseManager.activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

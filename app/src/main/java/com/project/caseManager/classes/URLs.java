@@ -1,4 +1,4 @@
-package com.metropolitan.internetcall.classes;
+package com.project.caseManager.classes;
 
 public class URLs {
     public static final String ROOT_URL = "http://10.0.2.2/android/api2.php?apicall=";

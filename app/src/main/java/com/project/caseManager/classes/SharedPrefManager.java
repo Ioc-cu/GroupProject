@@ -1,10 +1,10 @@
-package com.metropolitan.internetcall.classes;
+package com.project.caseManager.classes;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.metropolitan.internetcall.activities.LoginActivity;
+import com.project.caseManager.activities.LoginActivity;
 
 public class SharedPrefManager { //Session Handler Class
     //the constants
