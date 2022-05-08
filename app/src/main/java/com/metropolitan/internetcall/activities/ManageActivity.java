@@ -203,7 +203,7 @@ public class ManageActivity extends AppCompatActivity {
                         record.put("fullname", ""+patients.fullname);
                         patients.address = d.getString(2);
                         record.put("address", ""+patients.address);
-                        patients.date = d.getString(2);
+                        patients.date = d.getString(3);
                         record.put("date", ""+patients.date);
                         jsonArray.put(record);
                         Log.i("MESSAGE",record.toString());
