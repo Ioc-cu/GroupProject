@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.metropolitan.internetcall.classes.DataManager;
@@ -55,8 +56,7 @@ public class SendActivity extends AppCompatActivity {
         mybind.buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-           //Read from database
-
+                //Read from database
                 String mydata="";
                 dm = new DataManager(SendActivity.this);
                 Patients patients = new Patients();
@@ -64,10 +64,8 @@ public class SendActivity extends AppCompatActivity {
 
                 try {
                     if (d.getCount() > 0) {
-                        JSONObject data = new JSONObject();
-
-
-                        JSONArray jsonArray = new JSONArray();
+                        JSONObject data = new JSONObject(); //This is the Primary JSON file we will be sent as String mydata to server.
+                        JSONArray jsonArray = new JSONArray(); //the table saved as an array named Data below.
                         while (d.moveToNext()) {
                             JSONObject record = new JSONObject();
                             patients.id = d.getInt(0);
@@ -86,11 +84,9 @@ public class SendActivity extends AppCompatActivity {
                         mydata= data.toString();
                     }
                 }
-
                 catch(JSONException e)
                 {
-
-
+                    Toast.makeText(view.getContext(), "JSON file failed to instantiate", Toast.LENGTH_SHORT).show();
                 }
                 Worker worker = new Worker();
                 worker.execute(mydata);

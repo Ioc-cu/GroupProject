@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,10 +25,27 @@ import com.metropolitan.internetcall.R;
 import com.metropolitan.internetcall.classes.DataManager;
 import com.metropolitan.internetcall.classes.MyListAdapter;
 import com.metropolitan.internetcall.classes.Patients;
+import com.metropolitan.internetcall.classes.SharedPrefManager;
+import com.metropolitan.internetcall.classes.URLs;
+import com.metropolitan.internetcall.classes.User;
 import com.metropolitan.internetcall.databinding.ActivityManageBinding;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class ManageActivity extends AppCompatActivity {
 
@@ -61,6 +79,8 @@ public class ManageActivity extends AppCompatActivity {
             String date = String.format("%d-%d-%d", year, month, dayOfMonth);
             popUpDate.get().setText(date);
         };
+
+
 
 
         //Instantiates myPatients ArrayList with SQLite rows
@@ -165,6 +185,42 @@ public class ManageActivity extends AppCompatActivity {
             });
         });
 
+        myBind.btnCommit.setOnClickListener(view -> {
+            //Read from database
+            String mydata="";
+            Patients patients = new Patients();
+            Cursor d = dm.selectAll();
+
+            try {
+                if (d.getCount() > 0) {
+                    JSONObject data = new JSONObject(); //This is the Primary JSON file we will be sent as String mydata to server.
+                    JSONArray jsonArray = new JSONArray(); //the table saved as an array named Data below.
+                    while (d.moveToNext()) {
+                        JSONObject record = new JSONObject();
+                        patients.id = d.getInt(0);
+                        record.put("pid", ""+patients.id);
+                        patients.fullname = d.getString(1);
+                        record.put("fullname", ""+patients.fullname);
+                        patients.address = d.getString(2);
+                        record.put("address", ""+patients.address);
+                        patients.date = d.getString(2);
+                        record.put("date", ""+patients.date);
+                        jsonArray.put(record);
+                        Log.i("MESSAGE",record.toString());
+                    }
+                    data.put("Data",jsonArray);
+                    Log.i("MESSAGE",data.toString());
+                    mydata= data.toString();
+                }
+            }
+            catch(JSONException e)
+            {
+                Toast.makeText(view.getContext(), "JSON file failed to instantiate", Toast.LENGTH_SHORT).show();
+            }
+//            Worker worker = new Worker();
+//            worker.execute(mydata);
+        });
+
     }
 
     @Override
@@ -198,6 +254,70 @@ public class ManageActivity extends AppCompatActivity {
         return true;
     }
 
+
+    class Worker extends AsyncTask<String, String, String> {
+        TextView tv;
+
+        protected String doInBackground(String... s) {
+            StringBuilder sb =  new StringBuilder();
+            String params = s[0];
+            URL url;
+            try {
+                url = new URL(URLs.URL_SEND);
+
+                Log.d("MESSAGE", url.toString());
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setReadTimeout(5000);
+                conn.setConnectTimeout(5000);
+                conn.setRequestMethod("POST");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                //Send data
+                OutputStream os2 = conn.getOutputStream();
+                BufferedWriter writer2 = new BufferedWriter(new OutputStreamWriter(os2, "UTF-8"));
+                writer2.write(params);
+                writer2.flush();
+                writer2.close();
+                os2.close();
+
+                // 2. Open connection
+                conn.connect();
+                // 3. Get response
+                int responseCode = conn.getResponseCode();
+                if (responseCode == HttpsURLConnection.HTTP_OK) {
+                    Log.d("MESSAGE","OK");
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    sb = new StringBuilder();
+                    String response;
+                    while ((response = br.readLine()) != null) {
+                        sb.append(response);
+                    }
+                    Log.d("MESSAGE",sb.toString());
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return (sb.toString());
+        }
+
+
+        protected void onProgressUpdate(String... values) {
+            //tv.setText(values[0]);
+
+        }
+
+        protected void onPostExecute(String s) {
+            // This method is executed in the UIThread
+            // with access to the result of the long running task
+            // DO SOMETHING WITH STRING RESPONSE
+            super.onPostExecute(s);
+            Log.i("Response: ", s);
+        }
+    }
 
 
 }
