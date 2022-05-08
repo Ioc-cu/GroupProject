@@ -53,6 +53,15 @@ public class DataManager {
         db.execSQL(query);
 
     }
+
+    //Update a record
+    public void update(int id ,String name, String address, String date){
+        String query = String.format("UPDATE %s SET %s = '%s', %s = '%s', %s = '%s' WHERE %s = %d",
+                TABLE_N_AND_A, TABLE_ROW_FULLNAME, name, TABLE_ROW_ADDRESS, address, TABLE_ROW_DATE, date, TABLE_ROW_ID, id);
+        Log.i("update() = ", query);
+        db.execSQL(query);
+    }
+
     // Delete a record
     public void delete(int id){
 

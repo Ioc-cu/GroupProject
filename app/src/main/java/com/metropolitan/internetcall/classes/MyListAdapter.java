@@ -87,4 +87,8 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         notifyItemChanged(selectedPos);
     }
 
+    public ArrayList<Patients> getPatients(){
+        return listdata;
+    }
+
 }

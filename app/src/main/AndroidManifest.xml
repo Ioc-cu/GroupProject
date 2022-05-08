@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     package="com.metropolitan.internetcall">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,10 +15,7 @@
         <activity
             android:name=".activities.StatisticsActivity"
             android:exported="false" />
-        <activity android:name=".activities.ManageActivity"
-            android:windowSoftInputMode="adjustPan"/>
-
-
+        <activity android:name=".activities.ManageActivity" android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.SendActivity" />
         <activity android:name=".activities.DBActivity" />
