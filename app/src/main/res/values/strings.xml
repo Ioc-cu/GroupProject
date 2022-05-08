@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">CaseManager</string>
+    <string name="app_name">Covid 19 Case Manager</string>
     <string name="title_activity_manage">ManageActivity</string>
 </resources>
