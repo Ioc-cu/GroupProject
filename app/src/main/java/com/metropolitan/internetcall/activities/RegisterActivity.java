@@ -36,8 +36,6 @@ import javax.net.ssl.HttpsURLConnection;
 public class RegisterActivity extends AppCompatActivity {
 
     DataManager dm;
-    android.app.DatePickerDialog datePickerDialog;
-    DatePickerDialog.OnDateSetListener onDateSetListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,27 +45,19 @@ public class RegisterActivity extends AppCompatActivity {
         View myView = myBind.getRoot();
         setContentView(myView);
 
-
-        //Oh boy...
-        //java.sql.Timestamp timestamp = Timestamp.valueOf("2022-05-01 20:00:00");
-        onDateSetListener = (view, year, month, dayOfMonth) -> {
-            String date = String.format("%d-%d-%d", dayOfMonth, month, year);
-            myBind.DatePicker.setText(date);
-        };
-
         myBind.textViewRegister.setOnClickListener(view-> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
-        myBind.DatePicker.setOnClickListener(view -> {
-            datePickerDialog = new DatePickerDialog(this);
-            datePickerDialog.show();
-            datePickerDialog.setOnDateSetListener(onDateSetListener);
-        });
-
         myBind.buttonRegister.setOnClickListener(view -> {
-            String credentials = String.format("&username=%s&email=%s&password=%s",
-                    myBind.editTextUsername.getText(), myBind.editTextEmail.getText(), myBind.editTextPassword.getText());
-            System.out.println(credentials);
-            RegisterActivity.Worker worker = new RegisterActivity.Worker();
-            worker.execute(credentials);
+            if (myBind.editTextUsername.getText().toString().isEmpty() || myBind.editTextEmail.getText().toString().isEmpty() || myBind.editTextPassword.getText().toString().isEmpty()){
+                if (myBind.editTextUsername.getText().toString().isEmpty()) {myBind.editTextUsername.setError("Field cannot be left blank.");
+                } else if (myBind.editTextEmail.getText().toString().isEmpty()) {myBind.editTextEmail.setError("Field cannot be left blank");}
+                else {myBind.editTextPassword.setError("Field cannot be left blank");}
+            } else{
+                String credentials = String.format("&username=%s&email=%s&password=%s",
+                        myBind.editTextUsername.getText(), myBind.editTextEmail.getText(), myBind.editTextPassword.getText());
+                System.out.println(credentials);
+                RegisterActivity.Worker worker = new RegisterActivity.Worker();
+                worker.execute(credentials);
+            }
         });
 
 

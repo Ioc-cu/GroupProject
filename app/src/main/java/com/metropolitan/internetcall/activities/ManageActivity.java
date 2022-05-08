@@ -193,9 +193,8 @@ public class ManageActivity extends AppCompatActivity {
                     dm.insert(fullName, address, date); //Insert to SQLite Database
                     adapter.notifyDataSetChanged();
                 } else {
-                    
-                    popUpFullName.get().setError("Field cannot be left blank.");
-                    popUpAddress.get().setError("Field cannot be left blank.");
+                    if (fullName.isEmpty()) popUpFullName.get().setError("Field cannot be left blank.");
+                    else popUpAddress.get().setError("Field cannot be left blank.");
                 }
             });
         });
