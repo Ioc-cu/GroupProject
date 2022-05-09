@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 conn.setDoInput(true); //In order to use InputStream;
                 conn.setDoOutput(true); //In order to use OutputStream;
 
-                //2.1. Send credentials
+                //2.1. Input credentials to ApacheServer
                 OutputStream os = conn.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"));
@@ -84,13 +84,11 @@ public class LoginActivity extends AppCompatActivity {
                 writer.close();
                 os.close();
 
-                // 2.2. Open InputStream to connection
+                // 2.2. Initiate the connection, in order to get a response
                 conn.connect();
-
-
-                // 3. Get response
+                // 3. Get response code
                 int responseCode = conn.getResponseCode();
-
+                //Write output to a StringBuilder
                 if (responseCode == HttpsURLConnection.HTTP_OK) {
                     Log.d("MESSAGE","OK");
                     BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -104,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return (sb.toString());
+            return (sb.toString()); //Return composed StringBuilder output as String.
         }
 
 
