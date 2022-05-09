@@ -11,7 +11,7 @@ import com.project.caseManager.activities.LoginActivity;
 
 public class SharedPrefManager { //Session Handler Class
     //the constants
-    private static final String SHARED_PREF_NAME = "metropsharedpref";
+    private static final String SHARED_PREF_NAME = "usersharedpref";
     private static final String KEY_USERNAME = "keyusername";
     private static final String KEY_EMAIL = "keyemail";
     private static final String KEY_ID = "keyid";
