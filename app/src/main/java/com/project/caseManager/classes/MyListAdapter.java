@@ -24,7 +24,6 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder
         this.listdata = listdata;
     }
 
-
     @NonNull
     @Override
     public MyListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewdate) {
