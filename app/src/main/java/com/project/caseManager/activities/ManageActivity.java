@@ -79,9 +79,9 @@ public class ManageActivity extends AppCompatActivity {
         dialog.setTitle("Insert/Update");
 
         //Dialog layout's objects initialized as AtomicReference because they are used within nested lambdas
-        AtomicReference<EditText> popUpFullName = new AtomicReference<>(findViewById(R.id.popupfullname));
-        AtomicReference<EditText> popUpAddress = new AtomicReference<>(findViewById(R.id.popupaddress));
-        AtomicReference<TextView> popUpDate = new AtomicReference<>(findViewById(R.id.popupdate));
+        AtomicReference<EditText> popUpFullName = new AtomicReference<>(dialog.findViewById(R.id.popupfullname));
+        AtomicReference<EditText> popUpAddress = new AtomicReference<>(dialog.findViewById(R.id.popupaddress));
+        AtomicReference<TextView> popUpDate = new AtomicReference<>(dialog.findViewById(R.id.popupdate));
 
         //Creates a listener for DatePickerDialog dialog, used to format the DatePickerDialog output
         //and set it on popUpDate Textview.
@@ -112,7 +112,6 @@ public class ManageActivity extends AppCompatActivity {
         //DeleteButton
         myBind.btnDelete.setOnClickListener(view -> {
             try {
-                adapter.notifyItemChanged(adapter.getSelectedPos());
                 dm.delete(adapter.getId());
                 adapter.removeItem();
                 Toast.makeText(view.getContext(), "Record has been deleted!", Toast.LENGTH_SHORT).show();
@@ -128,10 +127,6 @@ public class ManageActivity extends AppCompatActivity {
                 if (adapter.getSelectedPos() == -1 ) Toast.makeText(view.getContext(), "Please select a record!", Toast.LENGTH_SHORT).show();
                 else {
                     dialog.show();
-                    popUpFullName.set(dialog.findViewById(R.id.popupfullname));
-                    popUpAddress.set(dialog.findViewById(R.id.popupaddress));
-                    popUpDate.set(dialog.findViewById(R.id.popupdate));
-
                     dialog.findViewById(R.id.popupdate).setOnClickListener(view2 -> {
                         datePickerDialog = new DatePickerDialog(this);
                         datePickerDialog.show();
@@ -168,10 +163,6 @@ public class ManageActivity extends AppCompatActivity {
         //Insert Button
         myBind.btnInsert.setOnClickListener(view -> {
             dialog.show();
-            popUpFullName.set(dialog.findViewById(R.id.popupfullname));
-            popUpAddress.set(dialog.findViewById(R.id.popupaddress));
-            popUpDate.set(dialog.findViewById(R.id.popupdate));
-
             dialog.findViewById(R.id.popupdate).setOnClickListener(view2 -> {
                 datePickerDialog = new DatePickerDialog(this);
                 datePickerDialog.show();
