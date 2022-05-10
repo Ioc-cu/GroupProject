@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
         View myView = myBind.getRoot();
         setContentView(myView);
 
-        myBind.textViewRegister.setOnClickListener(view-> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
+        myBind.textViewRegister.setOnClickListener(view-> {finish();startActivity(new Intent(getApplicationContext(), LoginActivity.class));});
         myBind.buttonRegister.setOnClickListener(view -> {
             if (myBind.editTextUsername.getText().toString().isEmpty() || myBind.editTextEmail.getText().toString().isEmpty() || myBind.editTextPassword.getText().toString().isEmpty()){
                 if (myBind.editTextUsername.getText().toString().isEmpty()) {myBind.editTextUsername.setError("Field cannot be left blank.");

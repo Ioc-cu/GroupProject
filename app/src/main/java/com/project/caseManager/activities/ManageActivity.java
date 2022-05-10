@@ -70,35 +70,25 @@ public class ManageActivity extends AppCompatActivity {
         p = new Patients();
         d = dm.selectAll();
         myPatients = new ArrayList<Patients>();
-        dm.printLocation();
+        dm.printLocation(); //Used for debug purposes, was used to figure out how to delete SQLiteDB
 
-        AtomicReference<EditText> popUpFullName = new AtomicReference<>(findViewById(R.id.popupfullname));
-        AtomicReference<EditText> popUpAddress = new AtomicReference<>(findViewById(R.id.popupaddress));
-        AtomicReference<TextView> popUpDate = new AtomicReference<>(findViewById(R.id.popupdate));
-        AtomicReference<Button> btnSubmit = new AtomicReference<>(findViewById(R.id.btnSubmit));
-
-
-        //Dialog? Initialization
+        //Dialog Initialization used for Insert/Update
         final Context context = this;
         final Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.popup_row);
         dialog.setTitle("Insert/Update");
 
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.popup_row, null);
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true;
-        PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        //Dialog layout's objects initialized as AtomicReference because they are used within nested lambdas
+        AtomicReference<EditText> popUpFullName = new AtomicReference<>(findViewById(R.id.popupfullname));
+        AtomicReference<EditText> popUpAddress = new AtomicReference<>(findViewById(R.id.popupaddress));
+        AtomicReference<TextView> popUpDate = new AtomicReference<>(findViewById(R.id.popupdate));
 
-
-
+        //Creates a listener for DatePickerDialog dialog, used to format the DatePickerDialog output
+        //and set it on popUpDate Textview.
         onDateSetListener = (view, year, month, dayOfMonth) -> {
             String date = String.format("%d-%d-%d", year, month, dayOfMonth);
             popUpDate.get().setText(date);
         };
-
-
 
 
         //Instantiates myPatients ArrayList with SQLite rows
@@ -119,6 +109,7 @@ public class ManageActivity extends AppCompatActivity {
         myBind.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         myBind.recyclerView.setAdapter(adapter);
 
+        //DeleteButton
         myBind.btnDelete.setOnClickListener(view -> {
             try {
                 adapter.notifyItemChanged(adapter.getSelectedPos());
@@ -131,16 +122,15 @@ public class ManageActivity extends AppCompatActivity {
             }
         });
 
+        //UpdateButton
         myBind.btnUpdate.setOnClickListener(view -> { //Same thing is done here, but just updates db.
             try{
                 if (adapter.getSelectedPos() == -1 ) Toast.makeText(view.getContext(), "Please select a record!", Toast.LENGTH_SHORT).show();
                 else {
                     dialog.show();
-                    //popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
                     popUpFullName.set(dialog.findViewById(R.id.popupfullname));
                     popUpAddress.set(dialog.findViewById(R.id.popupaddress));
                     popUpDate.set(dialog.findViewById(R.id.popupdate));
-                    btnSubmit.set(findViewById(R.id.btnSubmit));
 
                     dialog.findViewById(R.id.popupdate).setOnClickListener(view2 -> {
                         datePickerDialog = new DatePickerDialog(this);
@@ -178,9 +168,6 @@ public class ManageActivity extends AppCompatActivity {
         //Insert Button
         myBind.btnInsert.setOnClickListener(view -> {
             dialog.show();
-            //popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-            //Instantiate here
-
             popUpFullName.set(dialog.findViewById(R.id.popupfullname));
             popUpAddress.set(dialog.findViewById(R.id.popupaddress));
             popUpDate.set(dialog.findViewById(R.id.popupdate));
@@ -208,6 +195,7 @@ public class ManageActivity extends AppCompatActivity {
             });
         });
 
+        //Commit Button
         myBind.btnCommit.setOnClickListener(view -> {
             //Read from database
             String mydata="";
@@ -260,10 +248,12 @@ public class ManageActivity extends AppCompatActivity {
         switch (item.getTitle().toString()) {
             case "Manage":
                 System.out.println("You clicked Manage!");
+                finish();
                 startActivity(new Intent(this, ManageActivity.class));
                 break;
             case "Menu":
                 System.out.println("You clicked Menu!");
+                finish();
                 startActivity(new Intent(this, MenuActivity.class));
                 break;
             default:

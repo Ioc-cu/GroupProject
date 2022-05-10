@@ -68,10 +68,12 @@ public class MenuActivity extends AppCompatActivity { //Session Activity
         switch (item.getTitle().toString()) {
             case "Manage":
                 System.out.println("You clicked Manage!");
+                finish();
                 startActivity(new Intent(this, ManageActivity.class));
                 break;
             case "Menu":
                 System.out.println("You clicked Menu!");
+                finish();
                 startActivity(new Intent(this, MenuActivity.class));
                 break;
             default:
