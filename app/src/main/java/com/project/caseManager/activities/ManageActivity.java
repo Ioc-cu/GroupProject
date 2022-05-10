@@ -137,7 +137,6 @@ public class ManageActivity extends AppCompatActivity {
                         String fullName = popUpFullName.get().getText().toString();
                         String address = popUpAddress.get().getText().toString();
                         String date = popUpDate.get().getText().toString();
-
                         //Update Segment
                         try{
                             if (!(fullName.isEmpty() || address.isEmpty() || date.equals("Date"))) {
