@@ -140,14 +140,15 @@ public class ManageActivity extends AppCompatActivity {
 
                         //Update Segment
                         try{
-                            if (!(fullName.isEmpty() || address.isEmpty())) {
+                            if (!(fullName.isEmpty() || address.isEmpty() || date.equals("Date"))) {
                                 adapter.getPatients().set(adapter.getSelectedPos(), new Patients(adapter.getId(), fullName, address, date)); //THIS IS UPDATE
                                 dm.update(adapter.getId(), fullName, address, date);
                                 adapter.notifyItemChanged(adapter.getSelectedPos());
                                 dialog.dismiss();
                             } else {
                                 if (fullName.isEmpty()) popUpFullName.get().setError("Field cannot be left blank.");
-                                else popUpAddress.get().setError("Field cannot be left blank.");
+                                else if (address.isEmpty()) popUpAddress.get().setError("Field cannot be left blank.");
+                                else popUpDate.get().setError("Field cannot be left blank.");
                             }
                         } catch (Exception e){
                             Toast.makeText(view.getContext(), "Selected one too many!", Toast.LENGTH_SHORT).show();
@@ -174,14 +175,15 @@ public class ManageActivity extends AppCompatActivity {
                 String address = popUpAddress.get().getText().toString();
                 String date = popUpDate.get().getText().toString();
 
-                if (!(fullName.isEmpty() || address.isEmpty())){
+                if (!(fullName.isEmpty() || address.isEmpty() || date.equals("Date"))){
                     System.out.println("Max ID: " + (dm.getAutoIncrementValue()+1));
                     adapter.getPatients().add(new Patients(dm.getAutoIncrementValue()+1, fullName, address, date));
                     dm.insert(fullName, address, date); //Insert to SQLite Database
                     adapter.notifyDataSetChanged();
                 } else {
                     if (fullName.isEmpty()) popUpFullName.get().setError("Field cannot be left blank.");
-                    else popUpAddress.get().setError("Field cannot be left blank.");
+                    else if (address.isEmpty()) popUpAddress.get().setError("Field cannot be left blank.");
+                    else popUpDate.get().setError("Field cannot be left blank.");
                 }
             });
         });
