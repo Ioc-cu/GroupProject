@@ -86,7 +86,7 @@ public class ManageActivity extends AppCompatActivity {
         //Creates a listener for DatePickerDialog dialog, used to format the DatePickerDialog output
         //and set it on popUpDate Textview.
         onDateSetListener = (view, year, month, dayOfMonth) -> {
-            String date = String.format("%d-%d-%d", year, month, dayOfMonth);
+            String date = String.format("%d-%d-%d", year, month+1, dayOfMonth);
             popUpDate.get().setText(date);
         };
 
